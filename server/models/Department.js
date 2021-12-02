@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// creating schema
 const PostSchema = new Schema({
   name: String,
- 
+  require: true,
 });
 
-module.exports = mongoose.model('Department', PostSchema);
+const Department = mongoose.model("Department", PostSchema);
+module.exports = Department;
