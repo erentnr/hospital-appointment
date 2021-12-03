@@ -1,17 +1,19 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
+const departmentsController = require("../controllers/departmentController");
 
 // .../departments
-router.route("/")
-    .get( /* Get All Departments */)
-    .post( /* Create Departments */);
+router
+  .route("/")
+  .get(departmentsController.getAllDepartments)
+  .post(departmentsController.createDepartment);
 
 // .../departments/:id
-router.route("/:id")
-    .get( /* Get Departments by ID */)
-    .put( /* Update Departments by ID */)
-    .delete( /* Delete Departments by ID */);
-
+router
+  .route("/:id")
+  .get(departmentsController.getDepartmentById)
+  .put(departmentsController.updateDepartment)
+  .delete(departmentsController.deleteDepartment);
 
 // Export the router
 module.exports = router;
