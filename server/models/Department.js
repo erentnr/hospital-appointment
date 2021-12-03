@@ -1,10 +1,13 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const PostSchema = new Schema({
-  name: String,
-  require: true,
+const DepartmentSchema = new Schema({
+	name: {
+		type: String,
+		required: true,
+		unique: true,
+	}
 });
 
-const Department = mongoose.model("Department", PostSchema);
+const Department = mongoose.model("Department", DepartmentSchema);
 module.exports = Department;
