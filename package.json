@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/erentnr/hospital-appointment#readme",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mongoose": "^6.0.14"
   },
