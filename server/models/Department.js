@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
   name: String,
-  required: true,
+  require: true,
 });
 
 const Department = mongoose.model("Department", PostSchema);
