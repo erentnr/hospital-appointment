@@ -4,33 +4,33 @@ const Schema = mongoose.Schema;
 const UserSchema = Schema({
     first_name:{
         type: String,
-        require: true
+        required: true,
     },
     last_name:{
         type: String,
-        require: true
+        required: true,
     },
     email: {
         type: String,
-        require: true,
-        unique: true
+        required: true,
+        unique: true,
     },
     phone: {
         type: String,
-        require: true
+        required: true,
     },
     password: {
         type: String,
-        require: true
+        required: true,
     },
     role: {
         type: String,
         enum: ["admin","doctor","patient"],
-        default: "patient"
+        default: "patient",
     },
     department: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Department'
+        ref: 'Department',
     }
 });
 
