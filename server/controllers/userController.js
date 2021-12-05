@@ -1,6 +1,5 @@
 const User = require("../models/User");
 
-
 exports.getAllUser = async (req, res) => {
   try {
     const users = await User.find({}).select({ password: 0 });
@@ -65,14 +64,14 @@ exports.deleteUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    console.log(req.body)
-    
-      user.first_name= req.body.first_name,
-      user.last_name= req.body.last_name,
-      user.email= req.body.email,
-      user.phone= req.body.phone,
-      user.password= req.body.password,
-      user.save()
+    console.log(req.body);
+
+    (user.first_name = req.body.first_name),
+      (user.last_name = req.body.last_name),
+      (user.email = req.body.email),
+      (user.phone = req.body.phone),
+      (user.password = req.body.password),
+      user.save();
     res.status(200).json({
       status: "Success",
       message: "User Updated",
