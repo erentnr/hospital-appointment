@@ -1,6 +1,9 @@
 const express = require("express");
 
+// Import Routes
 const departmentsRoute = require("./routes/departmentsRoute");
+const userRouter = require("./routes/usersRoute");
+
 
 // Import environement varibles
 require("dotenv").config();
@@ -17,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/", departmentsRoute);
+app.use("/users", userRouter);
 
 // Listen App
 const port = process.env.PORT || 3000;
