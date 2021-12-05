@@ -33,7 +33,7 @@ const UserSchema = Schema({
         ref: 'Department',
         default: null
     }
-});
+},{timestamps:true,versionKey:false});
 
 const User = mongoose.model('User',UserSchema);
 module.exports = User;
