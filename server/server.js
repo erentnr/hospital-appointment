@@ -1,5 +1,8 @@
 const express = require('express');
 
+// Import Routes
+const userRouter=require('./routes/usersRoute')
+
 // Import environement varibles
 require('dotenv').config();
 
@@ -8,6 +11,13 @@ require('./config/database').connect();
 
 // Declare app
 const app = express();
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+//Routing
+app.use('/users', userRouter)
 
 // Listen App
 const port = process.env.PORT || 3000;
