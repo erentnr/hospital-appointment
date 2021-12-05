@@ -84,7 +84,7 @@ exports.update = async (req, res) => {
   }
 };
 
-exports.getAll = async (req, res) => {
+exports.getAll = async (req, res) => { 
   try {
     let filter = {};
     /*
@@ -94,7 +94,7 @@ exports.getAll = async (req, res) => {
         filter.patient = {"_id":userId}
     }
     if(userRole=="doctor"){
-        filter.DOCTOR = {"_id":userId}
+        filter.doctor = {"_id":userId}
     }
     */
 
