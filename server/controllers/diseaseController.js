@@ -2,7 +2,14 @@ const Disease = require("../models/Disease");
 
 exports.getAllDiseases = async (req, res) => {
   try {
-    const diseases = await Disease.find().populate("department");
+    let currentPage = req.query.page || 1;
+    let diseasePerPage = 10;
+
+    const diseases = await Disease.find()
+      .populate("department")
+      .skip(diseasePerPage * (currentPage - 1))
+      .limit(diseasePerPage);
+      
     res.status(200).json(diseases);
   } catch (err) {
     res.status(500).json({ message: err });

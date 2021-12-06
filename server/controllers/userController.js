@@ -1,8 +1,15 @@
 const User = require("../models/User");
 
-exports.getAllUser = async (req, res) => {
+exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.find({}).select({ password: 0 });
+    let currentPage = req.query.page || 1;
+    let userPerPage = 10;
+
+    const users = await User.find({})
+      .select({ password: 0 })
+      .skip(userPerPage * (currentPage - 1))
+      .limit(userPerPage);
+      
     res.status(200).json({
       status: "Success",
       message: "All users",
@@ -18,7 +25,7 @@ exports.getAllUser = async (req, res) => {
   }
 };
 
-exports.getUserDetail = async (req, res) => {
+exports.getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (user) {
