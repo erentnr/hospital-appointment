@@ -84,8 +84,12 @@ exports.updateAppointment = async (req, res) => {
   }
 };
 
-exports.getAllAppointments = async (req, res) => { 
+exports.getAllAppointments = async (req, res) => {  
   try {
+    let currentPage = req.query.page || 1;
+    let appointmentsPerPage = 10;
+    // ..../appointments?page=1
+
     let filter = {};
     /*
     const { userId, userRole} = req.user;
@@ -112,7 +116,9 @@ exports.getAllAppointments = async (req, res) => {
         populate: {
           path: "department",
         },
-      });
+      })
+      .skip(appointmentsPerPage * (currentPage - 1))
+      .limit(appointmentsPerPage);
 
     return res.status(200).json({
       status: "success",

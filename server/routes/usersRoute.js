@@ -8,14 +8,14 @@ const userController = require("../controllers/userController");
 // .../users
 router
     .route("/")
-    .get(userController.getAllUser);
+    .get(userController.getAllUsers);
 
 // .../users/:id
 router
-.route("/:id")
-    .get(userController.getUserDetail)
-    .delete(userController.deleteUser)
-    .put(userController.updateUser);
+    .route("/:id")
+    .get(userController.getUserById)
+    .put(userController.updateUser)
+    .delete(userController.deleteUser);
 
 // Export the router
 module.exports = router;
