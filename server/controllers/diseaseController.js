@@ -2,7 +2,7 @@ const Disease = require("../models/Disease");
 
 exports.getAllDiseases = async (req, res) => {
   try {
-    const diseases = await Disease.find();
+    const diseases = await Disease.find().populate("department");
     res.status(200).json(diseases);
   } catch (err) {
     res.status(500).json({ message: err });
@@ -11,7 +11,7 @@ exports.getAllDiseases = async (req, res) => {
 
 exports.createDisease = async (req, res) => {
   if (req.body.name && req.body.department_id) {
-    const disease = new Department({
+    const disease = new Disease({
       name: req.body.name,
       department: req.body.department_id,
     });
@@ -30,7 +30,7 @@ exports.createDisease = async (req, res) => {
 exports.getDiseaseById = async (req, res) => {
   if (req.params.id) {
     try {
-      const disease = await Disease.findById(req.params.id);
+      const disease = await Disease.findById(req.params.id).populate("department");
       res.status(200).json(disease);
     } catch (err) {
       res.status(500).json({ message: err });
@@ -50,7 +50,7 @@ exports.updateDisease = async (req, res) => {
             department: req.body.department_id,
         },
         { new: true }
-      );
+      ).populate("department");
       res.status(201).json(disease);
     } catch (err) {
       res.status(500).json({ message: err });
