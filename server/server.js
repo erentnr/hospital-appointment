@@ -4,7 +4,6 @@ const express = require("express");
 const departmentsRoute = require("./routes/departmentsRoute");
 const userRouter = require("./routes/usersRoute");
 
-
 // Import environement varibles
 require("dotenv").config();
 

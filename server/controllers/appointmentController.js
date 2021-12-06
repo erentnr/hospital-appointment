@@ -1,6 +1,6 @@
 const Appointment = require("../models/Appointment");
 
-exports.create = async (req, res) => {
+exports.createAppointment = async (req, res) => {
   try {
     const { patient, doctor, disease, appointmentDate, appointmentStatus } =
       req.body;
@@ -46,7 +46,7 @@ exports.create = async (req, res) => {
   }
 };
 
-exports.update = async (req, res) => {
+exports.updateAppointment = async (req, res) => {
   try {
     const { id, patient, doctor, disease, appointmentDate } = req.body;
 
@@ -84,7 +84,7 @@ exports.update = async (req, res) => {
   }
 };
 
-exports.getAll = async (req, res) => { 
+exports.getAllAppointments = async (req, res) => { 
   try {
     let filter = {};
     /*
@@ -125,7 +125,7 @@ exports.getAll = async (req, res) => {
   }
 };
 
-exports.getById = async (req, res) => {
+exports.getAppointmentById = async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -170,7 +170,7 @@ exports.getById = async (req, res) => {
   }
 };
 
-exports.changeStatus = async (req, res) => {
+exports.updateAppointmentStatus = async (req, res) => {
   const id = req.params.id;
   const status = req.body.status;
 
