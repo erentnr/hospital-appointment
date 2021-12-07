@@ -1,5 +1,6 @@
 require('dotenv').config();
 const nodemailer = require('nodemailer');
+const ejs = require("ejs");
 
 const {
   ENV_SMTP_HOST,
@@ -9,7 +10,7 @@ const {
   ENV_SENDER_MAIL_PASSWORD
 } = process.env;
 
-exports.appointmentCreateNotifyMail = async (patientFirstName, patientLastName, appointmentDate, appointmentDepartment, departmentDoctor) => {
+exports.appointmentCreateNotifyMail = async (patientEmail, patientFullName, appointmentDate, appointmentDepartment, departmentDoctor) => {
   try {
     let transporter = nodemailer.createTransport({
       host: ENV_SMTP_HOST,
@@ -21,14 +22,12 @@ exports.appointmentCreateNotifyMail = async (patientFirstName, patientLastName, 
       },
     });
 
-    let aDate = new Date(Date.now(appointmentDate));
-    let date = aDate.getDate();
-    let time = aDate.getTime();
+    let aDate = new Date(appointmentDate);
+    let time = aDate.getHours() + ":" + aDate.getMinutes();
 
-    renderFile(__dirname + "/mailTemplates/appointmentCreateNotifyMail.html", {
-        firstName: patientFirstName,
-        lastName: patientLastName,
-        date: date,
+    ejs.renderFile(__dirname + "/mailTemplates/appointmentCreateNotifyMail.html", {
+        fullName: patientFullName,
+        date: aDate.toLocaleDateString(),
         time: time,
         department: appointmentDepartment,
         doctor: departmentDoctor
@@ -36,7 +35,7 @@ exports.appointmentCreateNotifyMail = async (patientFirstName, patientLastName, 
       .then(html => {
         transporter.sendMail({
           from: `"Hospital X" <${ENV_SENDER_MAIL_ADDRESS}>`,
-          to: email,
+          to: patientEmail,
           subject: "Hospital X - Randevunuz Oluşturuldu",
           html: html
         });
