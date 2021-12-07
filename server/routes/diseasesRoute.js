@@ -1,19 +1,21 @@
 const express = require("express");
 const router = express.Router();
 const diseaseController = require("../controllers/diseaseController");
+const permissions = require("../middlewares/permissions");
+const tokenVerification = require("../middlewares/tokenVerification");
 
-// .../departments
+// .../disease
 router
   .route("/")
-  .get(diseaseController.getAllDiseases)
-  .post(diseaseController.createDisease);
+  .get(tokenVerification, diseaseController.getAllDiseases)
+  .post(tokenVerification, permissions(["admin"]), diseaseController.createDisease);
 
-// .../departments/:id
+// .../disease/:id
 router
   .route("/:id")
-  .get(diseaseController.getDiseaseById)
-  .put(diseaseController.updateDisease)
-  .delete(diseaseController.deleteDisease);
+  .get(tokenVerification, diseaseController.getDiseaseById)
+  .put(tokenVerification, permissions(["admin"]), diseaseController.updateDisease)
+  .delete(tokenVerification, permissions(["admin"]), diseaseController.deleteDisease);
 
 // Export the router
 module.exports = router;
