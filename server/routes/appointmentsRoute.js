@@ -1,22 +1,24 @@
 const express = require("express");
 const router = express.Router();
 const appointmentController = require("../controllers/appointmentController");
+const permissions = require("../middlewares/permissions");
+const tokenVerification = require("../middlewares/tokenVerification");
 
 // .../appointments
 router
   .route("/")
-  .get(appointmentController.getAllAppointments)
-  .post(appointmentController.createAppointment);
+  .get(tokenVerification, permissions(["doctor", "admin"]), appointmentController.getAllAppointments)
+  .post(tokenVerification, appointmentController.createAppointment);
 
 // .../appointments/:id
 router
   .route("/:id")
-  .get(appointmentController.getAppointmentById)
-  .put(appointmentController.updateAppointment);
+  .get(tokenVerification, appointmentController.getAppointmentById)
+  .put(tokenVerification, appointmentController.updateAppointment);
 
 router
   .route("/:id/status")
-  .put(appointmentController.updateAppointmentStatus);
+  .put(tokenVerification, appointmentController.updateAppointmentStatus);
 
 
 // Export the router
