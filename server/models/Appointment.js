@@ -15,7 +15,7 @@ const AppointmentSchema = Schema({
   disease: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Disease",
-    required: true,
+    default: null,
   },
   appointmentDate: {
     type: Date,

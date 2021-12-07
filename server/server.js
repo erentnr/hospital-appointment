@@ -1,8 +1,11 @@
 const express = require("express");
 
 // Import Routes
-const departmentsRoute = require("./routes/departmentsRoute");
-const userRouter = require("./routes/usersRoute");
+const usersRouter = require("./routes/usersRoute");
+const authRouter = require("./routes/authRoute");
+const departmentsRouter = require("./routes/departmentsRoute");
+const appointmentsRouter = require("./routes/appointmentsRoute");
+const diseasesRouter = require("./routes/diseasesRoute");
 
 
 // Import environement varibles
@@ -19,8 +22,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use("/", departmentsRoute);
-app.use("/users", userRouter);
+app.use("/users", usersRouter);
+app.use("/auth", authRouter);
+app.use("/departments", departmentsRouter);
+app.use("/appointments", appointmentsRouter);
+app.use("/diseases", diseasesRouter);
 
 // Listen App
 const port = process.env.PORT || 3000;

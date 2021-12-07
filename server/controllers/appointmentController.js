@@ -1,6 +1,6 @@
 const Appointment = require("../models/Appointment");
 
-exports.create = async (req, res) => {
+exports.createAppointment = async (req, res) => {
   try {
     const { patient, doctor, disease, appointmentDate, appointmentStatus } =
       req.body;
@@ -46,7 +46,7 @@ exports.create = async (req, res) => {
   }
 };
 
-exports.update = async (req, res) => {
+exports.updateAppointment = async (req, res) => {
   try {
     const { id, patient, doctor, disease, appointmentDate } = req.body;
 
@@ -84,8 +84,12 @@ exports.update = async (req, res) => {
   }
 };
 
-exports.getAll = async (req, res) => { 
+exports.getAllAppointments = async (req, res) => {  
   try {
+    let currentPage = req.query.page || 1;
+    let appointmentsPerPage = 10;
+    // ..../appointments?page=1
+
     let filter = {};
     /*
     const { userId, userRole} = req.user;
@@ -112,7 +116,9 @@ exports.getAll = async (req, res) => {
         populate: {
           path: "department",
         },
-      });
+      })
+      .skip(appointmentsPerPage * (currentPage - 1))
+      .limit(appointmentsPerPage);
 
     return res.status(200).json({
       status: "success",
@@ -125,7 +131,7 @@ exports.getAll = async (req, res) => {
   }
 };
 
-exports.getById = async (req, res) => {
+exports.getAppointmentById = async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -170,7 +176,7 @@ exports.getById = async (req, res) => {
   }
 };
 
-exports.changeStatus = async (req, res) => {
+exports.updateAppointmentStatus = async (req, res) => {
   const id = req.params.id;
   const status = req.body.status;
 
