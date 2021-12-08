@@ -25,7 +25,7 @@ exports.createAppointment = async (req, res) => {
       });
     }
 
-    await Appointment.create({
+    const appointment = await Appointment.create({
       patient: patient,
       doctor: doctor,
       disease: disease,
@@ -33,6 +33,19 @@ exports.createAppointment = async (req, res) => {
       appointmentStatus:
         appointmentStatus === "open" ? appointmentStatus : "pending",
     });
+
+    const appointmentDetail = await Appointment.findById(appointment._id)
+      .populate("patient")
+      .populate("doctor")
+      .populate("department");
+
+    let mail_email_address = appointmentDetail.patient.email;
+    let mail_full_name = appointmentDetail.patient.first_name + " " + appointmentDetail.patient.last_name;
+    let mail_appointment_date = appointmentDetail.appointmentDate;
+    let mail_appointment_department = appointmentDetail.department.name;
+    let mail_appointment_doctor = appointmentDetail.doctor.first_name + " " + appointmentDetail.doctor.last_name;
+
+    mailSender.appointmentCreateNotifyMail(mail_email_address, mail_full_name, mail_appointment_date, mail_appointment_department, mail_appointment_doctor);
 
     return res.status(201).json({
       status: "success",
@@ -93,7 +106,6 @@ exports.getAllAppointments = async (req, res) => {
     let filter = {};
     /*
     const { userId, userRole} = req.user;
-
     if(userRole=="patient"){
         filter.patient = {"_id":userId}
     }
