@@ -7,7 +7,6 @@ const departmentsRouter = require("./routes/departmentsRoute");
 const appointmentsRouter = require("./routes/appointmentsRoute");
 const diseasesRouter = require("./routes/diseasesRoute");
 
-
 // Import environement varibles
 require("dotenv").config();
 

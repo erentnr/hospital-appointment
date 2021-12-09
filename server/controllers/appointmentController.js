@@ -40,12 +40,24 @@ exports.createAppointment = async (req, res) => {
       .populate("department");
 
     let mail_email_address = appointmentDetail.patient.email;
-    let mail_full_name = appointmentDetail.patient.first_name + " " + appointmentDetail.patient.last_name;
+    let mail_full_name =
+      appointmentDetail.patient.first_name +
+      " " +
+      appointmentDetail.patient.last_name;
     let mail_appointment_date = appointmentDetail.appointmentDate;
     let mail_appointment_department = appointmentDetail.department.name;
-    let mail_appointment_doctor = appointmentDetail.doctor.first_name + " " + appointmentDetail.doctor.last_name;
+    let mail_appointment_doctor =
+      appointmentDetail.doctor.first_name +
+      " " +
+      appointmentDetail.doctor.last_name;
 
-    mailSender.appointmentCreateNotifyMail(mail_email_address, mail_full_name, mail_appointment_date, mail_appointment_department, mail_appointment_doctor);
+    mailSender.appointmentCreateNotifyMail(
+      mail_email_address,
+      mail_full_name,
+      mail_appointment_date,
+      mail_appointment_department,
+      mail_appointment_doctor
+    );
 
     return res.status(201).json({
       status: "success",
@@ -97,7 +109,7 @@ exports.updateAppointment = async (req, res) => {
   }
 };
 
-exports.getAllAppointments = async (req, res) => {  
+exports.getAllAppointments = async (req, res) => {
   try {
     let currentPage = req.query.page || 1;
     let appointmentsPerPage = 10;

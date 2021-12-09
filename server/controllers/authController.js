@@ -4,7 +4,7 @@ const User = require("../models/User");
 const Token = require("../models/Token");
 const {
   registerValidator,
-  loginValidator
+  loginValidator,
 } = require("../validators/authValidator");
 
 exports.createUser = async (req, res) => {
@@ -12,7 +12,7 @@ exports.createUser = async (req, res) => {
   if (error) {
     return res.status(400).json({
       status: "fail",
-      message: error.details[0].message
+      message: error.details[0].message,
     });
   }
 
@@ -21,7 +21,7 @@ exports.createUser = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({
         status: "fail",
-        message: "User already exists"
+        message: "User already exists",
       });
     }
 
@@ -34,7 +34,7 @@ exports.createUser = async (req, res) => {
       phone: req.body.phone,
       password: hashedPassword,
       role: req.body.role,
-      department: req.body.department
+      department: req.body.department,
     });
 
     res.status(200).json({
@@ -45,8 +45,8 @@ exports.createUser = async (req, res) => {
         last_name: user.last_name,
         email: user.email,
         role: user.role,
-        department: user.department
-      }
+        department: user.department,
+      },
     });
   } catch (err) {
     res.status(500).json({ message: err });
@@ -58,7 +58,7 @@ exports.login = async (req, res) => {
   if (error) {
     return res.status(400).json({
       status: "fail",
-      message: error.details[0].message
+      message: error.details[0].message,
     });
   }
 
@@ -67,7 +67,7 @@ exports.login = async (req, res) => {
     if (!user) {
       return res.status(400).json({
         status: "fail",
-        message: "User not exists"
+        message: "User not exists",
       });
     }
 
@@ -75,7 +75,7 @@ exports.login = async (req, res) => {
     if (!validPass) {
       return res.status(400).json({
         status: "fail",
-        message: "Invalid password"
+        message: "Invalid password",
       });
     }
 
@@ -92,7 +92,7 @@ exports.login = async (req, res) => {
 
     const token = await Token.create({
       user: user._id,
-      token: refreshToken
+      token: refreshToken,
     });
 
     res.status(200).json({
@@ -105,8 +105,8 @@ exports.login = async (req, res) => {
         last_name: user.last_name,
         email: user.email,
         role: user.role,
-        department: user.department
-      }
+        department: user.department,
+      },
     });
   } catch (err) {
     res.status(500).json({ message: err });
@@ -119,15 +119,15 @@ exports.logout = async (req, res) => {
     if (!token) {
       return res.status(401).json({
         status: "fail",
-        message: "Invalid token"
+        message: "Invalid token",
       });
     }
     await Token.findOneAndRemove({
-      token: req.body.refreshToken
+      token: req.body.refreshToken,
     });
     res.status(200).json({
       status: "success",
-      message: "user logged out"
+      message: "user logged out",
     });
   } catch (err) {
     res.status(500).json({ message: err });
@@ -140,21 +140,21 @@ exports.token = async (req, res) => {
     if (!refreshToken) {
       return res.status(401).json({
         status: "fail",
-        message: "Access denied"
+        message: "Access denied",
       });
     }
     const token = await Token.findOne({ token: refreshToken });
     if (!token) {
       return res.status(401).json({
         status: "fail",
-        message: "Access denied"
+        message: "Access denied",
       });
     }
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
       if (err) {
         return res.status(401).json({
           status: "fail",
-          message: "Access denied"
+          message: "Access denied",
         });
       }
       const accessToken = jwt.sign(
@@ -165,7 +165,7 @@ exports.token = async (req, res) => {
       res.status(200).json({
         status: "success",
         message: "New token generated",
-        accessToken: accessToken
+        accessToken: accessToken,
       });
     });
   } catch (err) {

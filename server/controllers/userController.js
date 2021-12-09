@@ -9,7 +9,7 @@ exports.getAllUsers = async (req, res) => {
       .select({ password: 0 })
       .skip(userPerPage * (currentPage - 1))
       .limit(userPerPage);
-      
+
     res.status(200).json({
       status: "Success",
       message: "All users",

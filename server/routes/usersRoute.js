@@ -8,15 +8,15 @@ const userController = require("../controllers/userController");
 
 // .../users
 router
-    .route("/")
-    .get(tokenVerification, permissions(["admin"]), userController.getAllUsers);
+  .route("/")
+  .get(tokenVerification, permissions(["admin"]), userController.getAllUsers);
 
 // .../users/:id
 router
-    .route("/:id")
-    .get(tokenVerification, userController.getUserById)
-    .put(tokenVerification, permissions(["admin"]), userController.updateUser)
-    .delete(tokenVerification, permissions(["admin"]), userController.deleteUser);
+  .route("/:id")
+  .get(tokenVerification, userController.getUserById)
+  .put(tokenVerification, permissions(["admin"]), userController.updateUser)
+  .delete(tokenVerification, permissions(["admin"]), userController.deleteUser);
 
 // Export the router
 module.exports = router;

@@ -7,7 +7,11 @@ const tokenVerification = require("../middlewares/tokenVerification");
 // .../appointments
 router
   .route("/")
-  .get(tokenVerification, permissions(["doctor", "admin"]), appointmentController.getAllAppointments)
+  .get(
+    tokenVerification,
+    permissions(["doctor", "admin"]),
+    appointmentController.getAllAppointments
+  )
   .post(tokenVerification, appointmentController.createAppointment);
 
 // .../appointments/:id
@@ -19,7 +23,6 @@ router
 router
   .route("/:id/status")
   .put(tokenVerification, appointmentController.updateAppointmentStatus);
-
 
 // Export the router
 module.exports = router;
