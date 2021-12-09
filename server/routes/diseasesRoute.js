@@ -8,14 +8,26 @@ const tokenVerification = require("../middlewares/tokenVerification");
 router
   .route("/")
   .get(tokenVerification, diseaseController.getAllDiseases)
-  .post(tokenVerification, permissions(["admin"]), diseaseController.createDisease);
+  .post(
+    tokenVerification,
+    permissions(["admin"]),
+    diseaseController.createDisease
+  );
 
 // .../disease/:id
 router
   .route("/:id")
   .get(tokenVerification, diseaseController.getDiseaseById)
-  .put(tokenVerification, permissions(["admin"]), diseaseController.updateDisease)
-  .delete(tokenVerification, permissions(["admin"]), diseaseController.deleteDisease);
+  .put(
+    tokenVerification,
+    permissions(["admin"]),
+    diseaseController.updateDisease
+  )
+  .delete(
+    tokenVerification,
+    permissions(["admin"]),
+    diseaseController.deleteDisease
+  );
 
 // Export the router
 module.exports = router;

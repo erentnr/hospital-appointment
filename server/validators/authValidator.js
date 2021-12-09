@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require("joi");
 
 const registerValidator = (data) => {
   const phoneRegexp = new RegExp("(05|5)[0-9][0-9][1-9]([0-9]){6}");
@@ -10,7 +10,7 @@ const registerValidator = (data) => {
     password: Joi.string().min(8).required(),
   });
   return schema.validate(data);
-}
+};
 
 const loginValidator = (data) => {
   const schema = Joi.object({
@@ -18,7 +18,7 @@ const loginValidator = (data) => {
     password: Joi.string().min(8).required(),
   });
   return schema.validate(data);
-}
+};
 
 module.exports.registerValidator = registerValidator;
 module.exports.loginValidator = loginValidator;
